@@ -1,34 +1,39 @@
 import React from "react";
 
-export default function Book({bookResults}) {
+export default function Book({bookResults, save, text, saved}) {
 
     const style = { 
-        backgroundColor: 'blue',
+        backgroundColor: 'gray',
         color: 'white',
         width: '100%',
-        height: '30vh'
+        height: 'auto',
+        minHeight: '30vh',
+        border: '1px black solid',
+        overflow: 'hidden',
     };  
 
     const imageStyle = {
         position: 'relative',
-        float: 'left',
-        padding: '2vh',
-        height: '26vh'
+        left: '0%',
+        top: '-20%'
     }
 
     const textStyle = {
-        color: 'white'
+        color: 'white',
+        marginLeft: '15vw',
+        marginRight: '15vw'
     }
 
   return (
     <>
         {bookResults.map((book) => (
             <div style={style}>
+                <h1 style={textStyle}>{book.title} by {book.author}</h1>
                 <img src={book.image} alt={"Not Found"} style={imageStyle}/>
-                <p style={textStyle}>{book.author}</p>
-                <a href={book.link}>{book.link}</a>
-                <h1>{book.title}</h1>
                 <p style={textStyle}>{book.description}</p>
+                <button onClick={save} id={book.key} name={book.id}>{text}</button>
+                <p></p>
+                <a href={book.link} style={textStyle}>Click here for more info</a>
             </div>
         ))}
     </>
