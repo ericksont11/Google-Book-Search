@@ -9,8 +9,13 @@ class MainPage extends React.Component {
       search: "",
       bookResults: [],
       button: 'save',
-      saved: ''
+      page: '',
+      saved: []
     }
+
+    componentDidMount () {
+      this.loadSavedBooks()
+     }
   
     handleInput = (e) => {
       if(e.keyCode === 13){
@@ -31,6 +36,36 @@ class MainPage extends React.Component {
         console.log(result))
       .catch(err =>
         console.log(err))
+    }
+
+    loadSavedBooks = () => {
+      API.getSavedBooks({})
+      .then(res => {
+        const saved = []
+        for (let i=0; i < res.data.length; i ++) {
+          const id = res.data[i].id
+          saved.push(id)
+        }
+        this.setState({ 
+          saved,
+        })
+        console.log(this.state.saved)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  
+    handleSave = (event) => {
+      if (this.state.saved.includes(event.target.name)){
+        alert("You've already saved this book!")
+      } else {
+        alert("Saved!")
+        API.saveBook(this.state.bookResults[event.target.id])
+        .then(result =>
+          console.log(result))
+        .catch(err =>
+          console.log(err))
+      }
     }
   
     ApiCall = (search) => {
@@ -73,7 +108,7 @@ class MainPage extends React.Component {
         <div className="App">
         <Navbar 
           handleInput = {this.handleInput}
-          page = {this.state.saved}
+          page = {this.state.page}
         />
         <Book 
           bookResults = {this.state.bookResults}
