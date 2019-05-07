@@ -19,7 +19,6 @@ class Saved extends Component {
     loadSavedBooks = () => {
       API.getSavedBooks({})
       .then(res => {
-        console.log(res.data.length)
         const savedBooks = []
         for (let i=0; i < res.data.length; i ++) {
           const description = res.data[i].description

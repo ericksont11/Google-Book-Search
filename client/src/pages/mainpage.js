@@ -32,7 +32,6 @@ class MainPage extends React.Component {
     }
 
     handleSave = (event) => {
-      console.log(event.target.id)
       API.saveBook(this.state.bookResults[event.target.id])
       .then(result =>
         console.log(result))
@@ -72,7 +71,6 @@ class MainPage extends React.Component {
   
     ApiCall = (search) => {
       API.getBook(search).then(res => {
-        console.log(res.data)
         const bookResults = []
         for (let i=0; i < res.data.items.length; i ++) {
           const description = res.data.items[i].volumeInfo.description
@@ -103,7 +101,6 @@ class MainPage extends React.Component {
           bookResults,
           display: 0
         });
-        console.log(bookResults)
       }).catch(() => {
         this.setState({ 
           title: "NOT AVAILABLE"
