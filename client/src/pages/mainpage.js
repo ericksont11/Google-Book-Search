@@ -28,10 +28,7 @@ class MainPage extends React.Component {
       console.log(event.target.id)
       API.saveBook(this.state.bookResults[event.target.id])
       .then(result =>
-        this.setState({ 
-          saved: 'green',
-        }),
-        console.log(this.state.bookResults[event.target.id]))
+        console.log(result))
       .catch(err =>
         console.log(err))
     }
