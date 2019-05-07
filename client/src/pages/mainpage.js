@@ -2,12 +2,14 @@ import React from 'react';
 import API from '../utils/googleAPI'
 import Navbar from '../components/navbar'
 import Book from '../components/book';
+import Intro from '../components/intro';
 
 class MainPage extends React.Component {
 
     state = {
-      search: "",
+      search: '',
       bookResults: [],
+      display: 1,
       button: 'save',
       page: '',
       saved: []
@@ -74,7 +76,10 @@ class MainPage extends React.Component {
         const bookResults = []
         for (let i=0; i < res.data.items.length; i ++) {
           const description = res.data.items[i].volumeInfo.description
-          const author = res.data.items[i].volumeInfo.authors[0]
+          let author = "Unknown"
+          if (res.data.items[i].volumeInfo.authors) {
+            author = res.data.items[i].volumeInfo.authors[0]
+          }
           const link = res.data.items[i].volumeInfo.infoLink
           const title = res.data.items[i].volumeInfo.title
           const image = res.data.items[i].volumeInfo.imageLinks && res.data.items[i].volumeInfo.imageLinks.thumbnail
@@ -92,7 +97,8 @@ class MainPage extends React.Component {
           bookResults.push(book)
         }
         this.setState({ 
-          bookResults
+          bookResults,
+          display: 0
         });
         console.log(bookResults)
       }).catch(() => {
@@ -104,12 +110,20 @@ class MainPage extends React.Component {
   
   
     render() {
+      const display = this.state.display;
       return (
         <div className="App">
         <Navbar 
           handleInput = {this.handleInput}
           page = {this.state.page}
         />
+        {display ? (
+          <Intro/>
+        ) : (
+          <>
+          </>
+        )
+        }
         <Book 
           bookResults = {this.state.bookResults}
           save = {this.handleSave}

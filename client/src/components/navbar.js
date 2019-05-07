@@ -11,7 +11,7 @@ export default function Navbar({handleInput, page}) {
 
         {!page ? (
           <>
-            <Link to="/books/saved" className={window.location.pathname === "/books/saved"}>Go to saved articles</Link>
+            <Link to="/books/saved" className={window.location.pathname === "/books/saved"}>Go to saved books</Link>
             <div>
               <Search
                 handleInput = {handleInput}
