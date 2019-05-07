@@ -1,6 +1,5 @@
 import React from 'react';
 import API from '../utils/googleAPI'
-import Search from '../components/search'
 import Navbar from '../components/navbar'
 import Book from '../components/book';
 
@@ -75,16 +74,15 @@ class MainPage extends React.Component {
     render() {
       return (
         <div className="App">
-        <Navbar />
-          <Search 
-            handleInput = {this.handleInput}
-          />
-          <Book 
-            bookResults = {this.state.bookResults}
-            save = {this.handleSave}
-            text={this.state.button}
-            color={this.state.saved}
-          />
+        <Navbar 
+          handleInput = {this.handleInput}
+          page = {this.state.saved}
+        />
+        <Book 
+          bookResults = {this.state.bookResults}
+          save = {this.handleSave}
+          text={this.state.button}
+        />
         </div>
       );
     }

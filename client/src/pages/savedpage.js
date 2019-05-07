@@ -1,13 +1,15 @@
 import React, { Component} from 'react';
 import API from '../utils/googleAPI';
 import Book from '../components/book'
+import Navbar from '../components/navbar'
 
 
 class Saved extends Component {
 
     state = {
       savedBooks: [],
-      button: 'delete'
+      button: 'delete',
+      page: 'True'
     };
 
     componentDidMount () {
@@ -60,6 +62,9 @@ class Saved extends Component {
   render() {
       return (
         <div className="App">
+          <Navbar
+           page={this.state.page}
+          />
           <Book 
             bookResults = {this.state.savedBooks}
             save = {this.handleDelete}

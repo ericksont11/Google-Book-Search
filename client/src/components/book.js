@@ -26,12 +26,12 @@ export default function Book({bookResults, save, text, saved}) {
 
   return (
     <>
-        {bookResults.map((book) => (
+        {bookResults.map((book, key) => (
             <div style={style}>
                 <h1 style={textStyle}>{book.title} by {book.author}</h1>
                 <img src={book.image} alt={"Not Found"} style={imageStyle}/>
                 <p style={textStyle}>{book.description}</p>
-                <button onClick={save} id={book.key} name={book.id}>{text}</button>
+                <button onClick={save} id={book.key} name={book.id} key={book.key}>{text}</button>
                 <p></p>
                 <a href={book.link} style={textStyle}>Click here for more info</a>
             </div>
