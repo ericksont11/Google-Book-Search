@@ -77,12 +77,15 @@ class MainPage extends React.Component {
         for (let i=0; i < res.data.items.length; i ++) {
           const description = res.data.items[i].volumeInfo.description
           let author = "Unknown"
+          let image = "https://via.placeholder.com/150"
           if (res.data.items[i].volumeInfo.authors) {
             author = res.data.items[i].volumeInfo.authors[0]
           }
           const link = res.data.items[i].volumeInfo.infoLink
           const title = res.data.items[i].volumeInfo.title
-          const image = res.data.items[i].volumeInfo.imageLinks && res.data.items[i].volumeInfo.imageLinks.thumbnail
+          if (res.data.items[i].volumeInfo.imageLinks) {
+            image = res.data.items[i].volumeInfo.imageLinks.thumbnail
+          }
           const id = res.data.items[i].id
           const key = i
           const book = {
