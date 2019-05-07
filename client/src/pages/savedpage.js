@@ -8,7 +8,7 @@ class Saved extends Component {
 
     state = {
       savedBooks: [],
-      button: 'delete',
+      button: 'DELETE',
       page: 'True'
     };
 

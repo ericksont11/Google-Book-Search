@@ -10,7 +10,7 @@ class MainPage extends React.Component {
       search: '',
       bookResults: [],
       display: 1,
-      button: 'save',
+      button: 'SAVE',
       page: '',
       saved: []
     }
