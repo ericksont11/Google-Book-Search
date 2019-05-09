@@ -3,6 +3,7 @@ import API from '../utils/googleAPI'
 import Navbar from '../components/navbar'
 import Book from '../components/book';
 import Intro from '../components/intro';
+import Popup from '../components/popup';
 
 class MainPage extends React.Component {
 
@@ -12,12 +13,30 @@ class MainPage extends React.Component {
       display: 1,
       button: 'SAVE',
       page: '',
-      saved: []
+      saved: [],
+      show: false,
     }
 
     componentDidMount () {
       this.loadSavedBooks()
      }
+
+     handleShow =() => {
+      var element = document.getElementById("saveModal");
+      element.classList.remove("hidden");
+      this.setState({
+        show: true
+      })
+    }
+
+     handleClose =() => {
+        document.body.addEventListener('click', function (){
+          var element = document.getElementById("saveModal");
+          element.classList.add("hidden");
+        }, true); 
+    }
+
+  
   
     handleInput = (e) => {
       if(e.keyCode === 13){
@@ -29,14 +48,6 @@ class MainPage extends React.Component {
         })
         document.getElementById("input").value = ""
       }
-    }
-
-    handleSave = (event) => {
-      API.saveBook(this.state.bookResults[event.target.id])
-      .then(result =>
-        console.log(result))
-      .catch(err =>
-        console.log(err))
     }
 
     loadSavedBooks = () => {
@@ -60,7 +71,7 @@ class MainPage extends React.Component {
       if (this.state.saved.includes(event.target.name)){
         alert("You've already saved this book!")
       } else {
-        alert("Saved!")
+        this.handleShow()
         API.saveBook(this.state.bookResults[event.target.id])
         .then(result =>
           console.log(result))
@@ -112,10 +123,13 @@ class MainPage extends React.Component {
     render() {
       const display = this.state.display;
       return (
-        <div className="App">
+        <div className="App" onClick={this.handleClose}>
         <Navbar 
           handleInput = {this.handleInput}
           page = {this.state.page}
+        />
+        <Popup 
+          show={this.state.show}
         />
         {display ? (
           <Intro/>
